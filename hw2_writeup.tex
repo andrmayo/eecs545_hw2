@@ -28,4 +28,24 @@
 \newcommand{\qed}[0]{$\square$}        	% make an unfilled square the default for ending a proof
 
 \begin{document}												% end of preamble and beginning of text that will be printed 
+\textbf{1 (a)} Note that $\frac{1}{1 + e^z} = 1 - \sigma(z) $ and $ \frac{\partial \sigma(z)}{\partial z} = \sigma(z) (1 - \sigma(z)$. \\
+\[ 
+  \frac{\partial{E(w)}}{\partial w} = 
+\]
+\[
+  y^T \frac{1}{\sigma(Xw)} \sigma(Xw) (1-\sigma(Xw)) X
+\]
+\[
+  + \: \frac{1}{1-\sigma(Xw)}(- \sigma(Xw)(1-\sigma(Xw))) X
+  - y^T \frac{1}{(1-\sigma(Xw))}(-\sigma(Xw)(1-\sigma(Xw))) X
+\]
+\[
+  = y^T X - y^T \sigma(Xw)) X - \sigma(Xw) X + y^T \sigma(Xw) X
+\]
+\[
+  = y^T X - \sigma(Xw) X 
+\]
+\[
+  \frac{\partial^2 E(w)}{\partial w} = - \sigma(Xw)(1 - \sigma(Xw)) X X^T
+\]
 \end{document}
