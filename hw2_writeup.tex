@@ -28,24 +28,32 @@
 \newcommand{\qed}[0]{$\square$}        	% make an unfilled square the default for ending a proof
 
 \begin{document}												% end of preamble and beginning of text that will be printed 
-\textbf{1 (a)} Note that $\frac{1}{1 + e^z} = 1 - \sigma(z) $ and $ \frac{\partial \sigma(z)}{\partial z} = \sigma(z) (1 - \sigma(z)$. \\
-\[ 
-  \frac{\partial{E(w)}}{\partial w} = 
+\textbf{1 (a)} Note that $\frac{1}{1 + e^z} = 1 - \sigma(z) $ and $ \frac{\partial \sigma(z)}{\partial z} = \sigma(z) (1 - \sigma(z)$. 
+\[
+  \frac{\partial{E(w)}}{\partial w_j} = 
+  \sum_{i=1}^{N} (x_j)^{(i)} y^{(i)} (1 - \sigma(w^T x^{(i)}))
+  - (x_j)^{(i)} \sigma(w^T x^{(i)}) 
+  + (x_j)^{(i)} y^{(i)} \sigma(w^T x^{(i)})
 \]
 \[
-  y^T \frac{1}{\sigma(Xw)} \sigma(Xw) (1-\sigma(Xw)) X
+  = \sum_{i=1}^{N} (x_j)^{(i)} y^{(i)} 
+  - (x_j)^{(i)} \sigma(w^T x^{(i)}) 
 \]
 \[
-  + \: \frac{1}{1-\sigma(Xw)}(- \sigma(Xw)(1-\sigma(Xw))) X
-  - y^T \frac{1}{(1-\sigma(Xw))}(-\sigma(Xw)(1-\sigma(Xw))) X
+  \frac{\partial^2 E(w)}{\partial (w_j)^2}
+  = - \sum_{i=1}^{N} (x_j)^{(i)} \sigma(w^T x^{(i)}) (1 - \sigma(w^T x^{(i)})) (x_j)^{(i)}
 \]
 \[
-  = y^T X - y^T \sigma(Xw)) X - \sigma(Xw) X + y^T \sigma(Xw) X
+  \frac{\partial^2 E(w)}{\partial w_j w_k}
+  = - \sum_{i=1}^{N} (x_j)^{(i)} \sigma(w^T x^{(i)}) (1 - \sigma(w^T x^{(i)})) (x_k)^{(i)}
 \]
+Let $ X \in \mathbb{R}^{n \times m} $ be the design matrix 
+and $ w \in \mathbb{R}^m $ be the weight vector, 
+where $ n $ is the number of observations
+and $ m $ is the number of features. 
+We can express the second-order partial derivatives in matrix form as 
 \[
-  = y^T X - \sigma(Xw) X 
+  X^T diag[ \sigma(Xw) (1 - \sigma(Xw)) ] X
 \]
-\[
-  \frac{\partial^2 E(w)}{\partial w} = - \sigma(Xw)(1 - \sigma(Xw)) X X^T
-\]
+which gives us our Hessian matrix.
 \end{document}
