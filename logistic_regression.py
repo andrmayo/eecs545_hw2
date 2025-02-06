@@ -43,7 +43,8 @@ def naive_logistic_regression(X: np.ndarray, Y: np.ndarray, max_iters = 100) -> 
             # Also, please do not introduce any additional python inner loop. #
             # note: You are allowed to use predefined sigmoid function above. #
             ###################################################################
-            raise NotImplementedError("TODO: Add your implementation here.")
+            grad +=  data_x*sigmoid(w@data_x) - data_x*data_y
+            H += np.outer(data_x*sigmoid(w@data_x)*(1-sigmoid(w@data_x)), data_x)
             ###################################################################
             #                        END OF YOUR CODE                         #
             ###################################################################
@@ -81,9 +82,8 @@ def vectorized_logistic_regression(X: np.ndarray, Y: np.ndarray, max_iters = 100
         # Also, please do not introduce any additional python inner loop.     #
         # You are allowed to use predefined sigmoid function above.           #
         #######################################################################
-        grad = None  # hint: grad.shape should be (d, ) at the end of this block
-        H = None  # hint: H.shape should be (d, d) at the end of this block
-        raise NotImplementedError("TODO: Add your implementation here.")
+        grad = X.T@sigmoid(X@w) - X.T @ Y  # hint: grad.shape should be (d, ) at the end of this block
+        H = X.T @ np.diag(sigmoid(X@w)*(1 - sigmoid(X@w))) @ X # hint: H.shape should be (d, d) at the end of this block
         #######################################################################
         #                          END OF YOUR CODE                           #
         #######################################################################
@@ -109,7 +109,8 @@ def compute_y_boundary(X_coord: np.ndarray, w: np.ndarray) -> np.ndarray:
     # x_coord and coefficients w. Please return/save your y_coordindate into  #
     # y_coord parameter. It is fair to assume that w[2] will not be zero.     #
     ###########################################################################
-    raise NotImplementedError("TODO: Add your implementation here.")
+    # For what values of x2 does sigmoid(w.T @ x) = 0.5
+    Y_coord = (-w[0] - w[1]*X_coord)/w[2]
     ###########################################################################
     #                            END OF YOUR CODE                             #
     ###########################################################################

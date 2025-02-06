@@ -51,9 +51,10 @@ Let $ X \in \mathbb{R}^{n \times m} $ be the design matrix
 and $ w \in \mathbb{R}^m $ be the weight vector, 
 where $ n $ is the number of observations
 and $ m $ is the number of features. 
+Let $ \odot $ express the Hadamard product of its operands. 
 We can express the second-order partial derivatives in matrix form as 
 \[
-  X^T diag[ - \sigma(Xw) (1 - \sigma(Xw)) ] X
+  X^T diag[ - \sigma(Xw) \odot (1 - \sigma(Xw)) ] X
 \]
 which gives us our Hessian matrix. \\ \\
 
@@ -66,7 +67,7 @@ which gives us our Hessian matrix. \\ \\
 \]
 Consider
 \[
-  z^T X^T diag[ \sigma(Xw) (1 - \sigma(Xw)) ] X z
+  z^T X^T diag[ \sigma(Xw) \odot (1 - \sigma(Xw)) ] X z
 \]
 Let $ D $ represent $ X^T diag[ \sigma(Xw) (1 - \sigma(Xw)) ] X $. $ D \in \mathbb{R}^{ m \times m }$. 
 Let $ D_i $ be a column of $ D $ and $ D^{(j)} $ be a row of $ D $.
@@ -89,7 +90,7 @@ therefore
 The Hessian matrix is negative semi-definite, and our original log-likelihood function is concave. \\ \\
 
 \textbf{1 (c)} We can invert the sign of the log-lihelihood function to get a loss function. This gives us the Hessian matrix 
-$ X^T diag[ \sigma(Xw) (1 - \sigma(Xw)) ] X $. For the gradient of the loss function with respect to $ w $, 
+$ X^T diag[ \sigma(Xw) \odot (1 - \sigma(Xw)) ] X $. For the gradient of the loss function with respect to $ w $, 
 we can take the partial derivative expression from \textbf{1 (a)}
 \[
   \sum_{i=1}^{N} (x_j)^{(i)} y^{(i)} 
@@ -105,6 +106,6 @@ So we the update for Newton's method is
   w_{new} = w_{old} - H^{-1} \nabla_w E 
 \]
 \[
-  w_{new} = w_{old} - \{X^T diag[ \sigma(Xw) (1 - \sigma(Xw)) ] X \}^{-1} [ X^T \sigma(Xw) - X^T y ]
+  w_{new} = w_{old} - \{X^T diag[ \sigma(Xw) \odot (1 - \sigma(Xw)) ] X \}^{-1} [ X^T \sigma(Xw) - X^T y ]
 \]
 \end{document}
