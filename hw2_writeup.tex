@@ -116,101 +116,76 @@ $ w_0 $: -1.84922892 $ w_1 $: -0.62814188 $ w_2 $: 0.85846843
   \includegraphics[width=\linewidth]{logistic_regression.png}
 \end{figure}
 \newpage
-\textbf{2 (a)} $ \nabla w_m l (w) = $
-\[ 
-  \sum_{i=1}^{N} 
-  \frac{1}{ 
-    [\frac{exp[w_{m}^{T} \phi(x^{(i)})]}{1 + \sum_{j=1}^{K-1} exp[w_{j}^{T} \phi(x^{(i)})]} 
-    ]^{y^{(i)}}
-    [1 - 
-      \frac{exp[w_{m}^{T} \phi(x^{(i)})]}{1 + \sum_{j=1}^{K-1} exp[w_{j}^{T} \phi(x^{(i)})]}
-    ]^{1 - y^{(i)}}
-  }
+\textbf{2 (a)} If we consider only $ w_m $, we can express the log-likelihood as
+\[
+  \sum_{i=1}^{N} log([p(y^{(i)} = m | x^{(i)}, w)]^{\mathbb{I} \{ y^{(i)} = m \}})
 \]
 \[
-  \{
-    [ 1 - \frac{exp[ w_{m}^{T} \phi(x^{(i)}) ]}{ 1 + \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] } ]^{1 - y^{(i)}}
-    y[ \frac{ exp[ w_{m}^{T} \phi(x^{(i)}) ] } { 1 + \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] } ]^{y^{(i)}-1}
+  \sum_{i=1}^{N} \mathbb{I} \{ y^{(i)} = m \} log( [ \frac{
+    exp[ w_{m}^{T} \phi(x^{(i)}) ]
+  }{
+    \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ]
+  } ] )
 \]
+
+$ \nabla w_m l (w) = $
 \[
-    [
-      \frac{
-        exp[ w_{m}^{T} \phi(x^{(i)}) ] \phi(x^{(i)})
-      }{
-        1 + \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ]
-      }
-      - \frac{
-        exp[ 2 w_{m}^{T} \phi(x^{(i)}) ] \phi(x^{(i)})
-      }{
-        ( 1 + \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] )^2
-      }
-    ]
-\]
-\[
-    [
-      \frac{
-        exp[ w_{m}^{T} \phi(x^{(i)}) ] 
-      }{
-        1 + \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ]
-      }
-    ]^{y^{(i)}}
-    (y^{(i)} - 1)
-    [
-      1 - \frac{
-        exp[ (w_{m}^{T} \phi(x^{(i)})) ]
-      }{
-        1 + \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ]
-      } 
-    ]^{y^{(i)} - 2}
-\]
-\[
-    [
-      \frac{
-        - exp[ w_{m}^{T} \phi(x^{(i)}) ] \phi(x^{(i)})
-      }{
-        1 + \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] 
-      }
-      + \frac{
-        exp[ 2 w_{m}^{T} \phi(x^{(i)}) ] \phi(x^{(i)})
-      }{
-        (1 + \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ])^2 
-      }
-    ]
-  \}
-\]
-\[ 
-  = \sum_{i=1}^{N} 
-    y[ \frac{ exp[ w_{m}^{T} \phi(x^{(i)}) ] } { 1 + \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] } ]^{y^{(i)}-1}
-\]
-\[
-    [
-      \frac{
-        - exp[ w_{m}^{T} \phi(x^{(i)}) ] \phi(x^{(i)}) - exp[ w_{m}^{T} \phi(x^{(i)}) ] \phi(x^{(i)}) \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ]
-      - exp[ 2 w_{m}^{T} \phi(x^{(i)}) ] \phi(x^{(i)})
+  \sum_{i=1}^{N} \mathbb{I} \{ y^{(i)} = m \} 
+  \frac{ \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] }{ exp[ w_{m}^{T} \phi(x^{(i)}) ] }
+  [
+    \frac{
+      exp[ w_{m}^{T} \phi(x^{(i)}) ] \phi(x^{(i)})
     }{
-       ( 1 + \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] )^2
+      \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ]
     }
-    ]
+    - \frac{
+      ( exp[ w_{m}^{T} \phi(x^{(i)}) ] )^2 \phi(x^{(i)})
+    }{
+      ( \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] )^2
+    }
+  ]
 \]
 \[
-    [
-    (y^{(i)} - 1)
-    [
-      1 - \frac{
-        exp[ (w_{m}^{T} \phi(x^{(i)})) ]
-      }{
-        1 + \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ]
-      } 
-    ]^{y^{(i)} - 2}
+  = \sum_{i=1}^{N} \mathbb{I} \{ y^{(i)} = m \} 
+  [
+    \frac{
+      \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] exp[ w_{m}^{T} \phi(x^{(i)}) ] \phi(x^{(i)}) 
+    }{
+      exp[ w_{m}^{T} \phi(x^{(i)}) ] \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ]
+    }
 \]
 \[
-    [
-      \frac{
-        - exp[ w_{m}^{T} \phi(x^{(i)}) ] \phi(x^{(i)}) - exp[ w_{m}^{T} \phi(x^{(i)}) ] \phi(x^{(i)}) \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ]
-        + exp[ 2 w_{m}^{T} \phi(x^{(i)}) ] \phi(x^{(i)})
-      }{
-        (1 + \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ])^2 
-      }
-    ]
+    - \frac{
+      \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ]
+      ( exp[ w_{m}^{T} \phi(x^{(i)}) ] )^2 \phi(x^{(i)})
+    }{
+      exp[ w_{m}^{T} \phi(x^{(i)}) ]
+      ( \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] )^2
+    }
+  ]
 \]
+\[
+= \sum_{i=1}^{N} \mathbb{I} \{ y^{(i)} = m \}
+[
+  \phi(x^{(i)})
+    - \frac{
+      ( exp[ w_{m}^{T} \phi(x^{(i)}) ] ) \phi(x^{(i)})
+    }{
+      ( \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] )
+    }
+]
+\]
+\[
+= \sum_{i=1}^{N} \mathbb{I} \{ y^{(i)} = m \} \phi(x^{(i)})
+[
+  1 
+  - \frac{
+      ( exp[ w_{m}^{T} \phi(x^{(i)}) ] )
+    }{
+      ( \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] )
+    }
+]
+\]
+\newpage
+
 \end{document}
