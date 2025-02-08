@@ -101,7 +101,7 @@ invert the sign, and express it in matrix form:
   \nabla_w E = X^T \sigma(Xw) - X^T y
 \]
 
-So we the update for Newton's method is
+So the update for Newton's method is
 \[
   w_{new} = w_{old} - H^{-1} \nabla_w E 
 \]
@@ -116,7 +116,7 @@ $ w_0 $: -1.84922892 $ w_1 $: -0.62814188 $ w_2 $: 0.85846843
   \includegraphics[width=\linewidth]{logistic_regression.png}
 \end{figure}
 \newpage
-\textbf{2 (a)} If we consider only $ w_m $, we can express the log-likelihood as
+\textbf{2 (a)} If we consider only the case where $ k = w_m $, we can express the log-likelihood as
 \[
   \sum_{i=1}^{N} log([p(y^{(i)} = m | x^{(i)}, w)]^{\mathbb{I} \{ y^{(i)} = m \}})
 \]
@@ -124,24 +124,24 @@ $ w_0 $: -1.84922892 $ w_1 $: -0.62814188 $ w_2 $: 0.85846843
   \sum_{i=1}^{N} \mathbb{I} \{ y^{(i)} = m \} log( [ \frac{
     exp[ w_{m}^{T} \phi(x^{(i)}) ]
   }{
-    \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ]
+    \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ]
   } ] )
 \]
 
-$ \nabla w_m l (w) = $
+If we look only at this case, then the corresponding part of $ \nabla w_m l (w) $ is 
 \[
   \sum_{i=1}^{N} \mathbb{I} \{ y^{(i)} = m \} 
-  \frac{ \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] }{ exp[ w_{m}^{T} \phi(x^{(i)}) ] }
+  \frac{ \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ] }{ exp[ w_{m}^{T} \phi(x^{(i)}) ] }
   [
     \frac{
       exp[ w_{m}^{T} \phi(x^{(i)}) ] \phi(x^{(i)})
     }{
-      \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ]
+      \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ]
     }
     - \frac{
       ( exp[ w_{m}^{T} \phi(x^{(i)}) ] )^2 \phi(x^{(i)})
     }{
-      ( \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] )^2
+      ( \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ] )^2
     }
   ]
 \]
@@ -149,18 +149,18 @@ $ \nabla w_m l (w) = $
   = \sum_{i=1}^{N} \mathbb{I} \{ y^{(i)} = m \} 
   [
     \frac{
-      \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] exp[ w_{m}^{T} \phi(x^{(i)}) ] \phi(x^{(i)}) 
+      \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ] exp[ w_{m}^{T} \phi(x^{(i)}) ] \phi(x^{(i)}) 
     }{
-      exp[ w_{m}^{T} \phi(x^{(i)}) ] \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ]
+      exp[ w_{m}^{T} \phi(x^{(i)}) ] \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ]
     }
 \]
 \[
     - \frac{
-      \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ]
+      \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ]
       ( exp[ w_{m}^{T} \phi(x^{(i)}) ] )^2 \phi(x^{(i)})
     }{
       exp[ w_{m}^{T} \phi(x^{(i)}) ]
-      ( \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] )^2
+      ( \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ] )^2
     }
   ]
 \]
@@ -171,21 +171,148 @@ $ \nabla w_m l (w) = $
     - \frac{
       ( exp[ w_{m}^{T} \phi(x^{(i)}) ] ) \phi(x^{(i)})
     }{
-      ( \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] )
+      ( \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ] )
     }
 ]
 \]
 \[
-= \sum_{i=1}^{N} \mathbb{I} \{ y^{(i)} = m \} \phi(x^{(i)})
-[
-  1 
-  - \frac{
+= \sum_{i=1}^{N} \phi(x^{(i)}) \mathbb{I} \{ y^{(i)} = m \} 
+[  
+  1 - 
+  \frac{
       ( exp[ w_{m}^{T} \phi(x^{(i)}) ] )
     }{
-      ( \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] )
+      ( \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ] )
     }
-] \; \square
+] 
 \]
-\newpage
+Now, let us look at the case where $ k \neq m $. Here, the corresponding part of $ \nabla w_m l (w) $ is
+\[
+  \sum^{k \neq m} \mathbb{I}\{ y^{(i)} = k \}
+  \frac{
+    \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ]
+  }{
+    exp[ w_{k}^{T} \phi(x^{(i)})]
+  }
+  [ - \frac{
+    exp[ w_{k}^{T} \phi(x^{(i)})] exp[ w_{m}^{T} \phi(x^{(i)})] \phi(x^{(i)})
+  }{
+    [ \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ] ]^2
+  } ]
+\]
+\[
+  = - \sum^{k \neq m} \mathbb{I}\{ y^{(i)} = k \}
+[
+  \frac{
+    exp[ w_{m}^{T} \phi(x^{(i)})] \phi(x^{(i)})
+  }{
+    [ \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ] ]
+  } ]
+\]
+If we incorporate both cases, we get
+\[
+  \sum_{i=1}^{N} \phi(x^{(i)}) \mathbb{I} \{ y^{(i)} = m \} 
+  [  
+    1 - 
+    \frac{
+        ( exp[ w_{m}^{T} \phi(x^{(i)}) ] )
+      }{
+        ( \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ] )
+      }
+  ]
+  - \sum^{k \neq m} \mathbb{I}\{ y^{(i)} = k \}
+  [
+    \frac{
+      exp[ w_{m}^{T} \phi(x^{(i)})] \phi(x^{(i)})
+    }{
+      [ \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ] ]
+    } 
+  ]
+\]
+\[
+=  \sum_{i=1}^{N} \phi(x^{(i)}) \mathbb{I} \{ y^{(i)} = m \} 
+  [  
+    1 - 
+    \frac{
+        ( exp[ w_{m}^{T} \phi(x^{(i)}) ] )
+      }{
+        ( \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ] )
+      }
+  ]
+  - [ 1 - \mathbb{I}\{ y^{(i)} = m \} ]
+  [
+    \frac{
+      exp[ w_{m}^{T} \phi(x^{(i)})] \phi(x^{(i)})
+    }{
+      [ \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ] ]
+    } 
+  ]
+\]
+\[
+=  \sum_{i=1}^{N} \mathbb{I} \{ y^{(i)} = m \} \phi(x^{(i)}) 
+    - \frac{
+      \mathbb{I} \{ y^{(i)} = m \} exp[ w_{m}^{T} \phi(x^{(i)}) ] ) (\phi(x^{(i)})
+      }{
+        ( \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ] )
+      }
+  ]
+\]
+\[
+  - [
+    \frac{
+      exp[ w_{m}^{T} \phi(x^{(i)})] \phi(x^{(i)})
+    }{
+      [ \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ] ]
+    } 
+  ]
+  + 
+    \frac{
+      \mathbb{I}\{ y^{(i)} = m \} ]
+      exp[ w_{m}^{T} \phi(x^{(i)})] \phi(x^{(i)})
+    }{
+      [ \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ] ]
+    } 
+\]
+\[
+  = \sum_{i=1}^{N} \phi(x^{(i)}) 
+  [ 
+    \mathbb{I} \{ y^{(i)} = m \} 
+    - [
+      \frac{
+        exp[ w_{m}^{T} \phi(x^{(i)})]
+      }{
+        [ \sum_{j=1}^{K} exp[ w_{j}^{T} \phi(x^{(i)}) ] ]
+      } 
+    ]
+  ]
+\]
+Because $ w_K $ is fixed at 0, we can write this as 
+\[
+  \sum_{i=1}^{N} \phi(x^{(i)}) 
+  [ 
+    \mathbb{I} \{ y^{(i)} = m \} 
+    - [
+      \frac{
+        exp[ w_{m}^{T} \phi(x^{(i)})]
+      }{
+        [ 1 + \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] ]
+      } 
+    ]
+  ] \; \square
+\] 
+So the update rule is 
+\[
+  w_m * = w_m  + \alpha 
+  \sum_{i=1}^{N} \phi(x^{(i)})
+  [
+    \mathbb{I} \{ y^{(i)} = m \} 
+    - \frac{
+        ( exp[ w_{m}^{T} \phi(x^{(i)}) ] )
+      }{
+        [ 1 + \sum_{j=1}^{K-1} exp[ w_{j}^{T} \phi(x^{(i)}) ] ]
+      }
+  ]
+\]
+\textbf{2 (c)} Accuracy on the test set is 94\%. 
 
 \end{document}

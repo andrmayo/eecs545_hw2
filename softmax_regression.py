@@ -27,7 +27,12 @@ def compute_softmax_probs(X: np.ndarray, W: np.ndarray) -> np.ndarray:
     # Hint: the pseudo code in the link will not be 100% matched with ours.   #
     # You may need to slightly edit the code script in the link.              #
     ###########################################################################
-    raise NotImplementedError("TODO: Add your implementation here.")
+    # shift matrix values so that highest value is 0 to avoid numerical instability
+    shifted = X @ W.T
+    shifted -= np.tile(np.reshape(np.max(shifted, axis = 1), shape=(-1, 1)), (1, shifted.shape[1]))
+    shifted = np.exp(shifted)
+    probs = np.einsum("ij, i -> ij", shifted, 1/(np.sum(shifted, axis = 1))) 
+    #probs = np.einsum("ij, i -> ij", np.exp(X @ W.T), 1/np.sum(np.exp(X @ W.T), axis = 1)) 
     ###########################################################################
     #                            END OF YOUR CODE                             #
     ###########################################################################
@@ -67,7 +72,22 @@ def gradient_ascent_train(X_train: np.ndarray,
         # You are allowed to use compute_softmax_probs function.          #
         # Note that Y_train has class labels in [1 ~ num_class]           #
         ###################################################################
-        raise NotImplementedError("TODO: Add your implementation here.")
+        class_probs = -compute_softmax_probs(X_train, W)
+        for i, label in enumerate(Y_train):
+            class_probs[i, int(label[0] - 1)] += 1
+        class_probs = X_train.T @ class_probs
+        delta_W = class_probs.T
+        #for i in range(num_class-1): 
+            #class_indices = np.where(np.reshape(Y_train, shape=-1) == i+1)
+            #inverse_indices = np.where(np.reshape(Y_train, shape=-1) != i+1)
+            #X_inclass = X_train.copy()
+            #X_inclass[inverse_indices] = 0
+
+            #m_probabilities = np.reshape(class_probs[:, i], shape=-1)
+            #delta_W[i] += np.sum(X_inclass - X_train * np.column_stack([m_probabilities]*X_train.shape[1]), axis = 0)
+            #delta_W[i] += (1 - (np.exp(X_train[class_indices, :] @ W[i]) / np.sum(np.exp(X @ W.T), axis = 1))) @ X_train[class_indices, :]
+            #delta_W[i] -= (np.exp(X_train[inverse_indices, :] @ W[i]) / np.sum(np.exp(X @ W.T), axis = 1)) @ X_train[inverse_indices, :] 
+
         ###################################################################
         #                        END OF YOUR CODE                         #
         ###################################################################
@@ -105,7 +125,11 @@ def compute_accuracy(X_test: np.ndarray,
     # We are using this value at the end of this function by dividing it to   #
     # number of (X, Y) data pairs. Hint: check the equation in the homework.  #
     ###########################################################################
-    raise NotImplementedError("TODO: Add your implementation here.")
+    logits = np.exp(X_test @ W.T)
+    probs = logits/(1 + np.tile(np.reshape(np.sum(logits, axis = 1), shape=(-1, 1)), (1, logits.shape[1])))
+    predictions = (np.argmax(probs, axis = 1) + 1).astype(np.int32) 
+    int_Y_test = np.reshape(int_Y_test, shape=-1)
+    count_correct = predictions[predictions==int_Y_test].size
     ###########################################################################
     #                            END OF YOUR CODE                             #
     ###########################################################################
