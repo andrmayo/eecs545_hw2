@@ -29,19 +29,9 @@ def compute_softmax_probs(X: np.ndarray, W: np.ndarray) -> np.ndarray:
     ###########################################################################
     # shift matrix values so that highest value is 0 to avoid numerical instability
     shifted = X @ W.T
-    # let's try doing the shifting with a loop
-    for i, row in enumerate(shifted):
-        row_max = np.max(row)
-        shifted[i] -= row_max
-        
+    shifted -= np.tile(np.reshape(np.max(shifted, axis = 1), shape=(-1, 1)), (1, shifted.shape[1]))
     shifted = np.exp(shifted)
-
-    #shifted -= np.tile(np.reshape(np.max(shifted, axis = 1), shape=(-1, 1)), (1, shifted.shape[1]))
-    #shifted = np.exp(shifted)
-
     probs = np.einsum("ij, i -> ij", shifted, 1/(np.sum(shifted, axis = 1))) 
-
-
     #probs = np.einsum("ij, i -> ij", np.exp(X @ W.T), 1/np.sum(np.exp(X @ W.T), axis = 1)) 
     ###########################################################################
     #                            END OF YOUR CODE                             #
