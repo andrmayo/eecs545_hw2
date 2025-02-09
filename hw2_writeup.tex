@@ -315,4 +315,103 @@ So the update rule is
 \]
 \textbf{2 (c)} Accuracy on the test set is 94\%. 
 
+\newpage 
+\textbf{3 (a)} With Bayes' theorem, we can express the posterior probability of the Gaussian discriminant analysis 
+for $ y = 1 $ as 
+\[
+p( y = 1 | x; \phi, \Sigma, m_0, m_1 ) = 
+\frac {p(x | y = 1) p(y = 1)} {p(x | y = 1) p(y = 1) + p(x | y = 0) p(y=0)}
+\]
+\[ 
+  = \frac{
+    \phi \frac{ 1 }{ 2 \pi^{\frac{M}{2}} | \Sigma |^{\frac{1}{2}} } 
+    exp[ - \frac{1}{2} (x - \mu_1)^T \Sigma^{-1} (x - \mu_1) ]
+  }{
+    \phi \frac{ 1 }{ 2 \pi^{\frac{M}{2}} | \Sigma |^{\frac{1}{2}} }
+    exp[ - \frac{1}{2} (x - \mu_1)^T \Sigma^{-1} (x - \mu_1) ]
+    +
+    (1 - \phi) \frac{ 1 }{ 2 \pi^{\frac{M}{2}} | \Sigma |^{\frac{1}{2}} }
+    exp[ - \frac{1}{2} (x - \mu_0)^T \Sigma^{-1} (x - \mu_0) ]
+  }
+\]
+\[
+  = \frac{
+    \phi \;
+    exp[ - \frac{1}{2} (x - \mu_1)^T \Sigma^{-1} (x - \mu_1) ]
+  }{
+    \phi \;
+    exp[ - \frac{1}{2} (x - \mu_1)^T \Sigma^{-1} (x - \mu_1) ]
+    +
+    (1 - \phi) \;
+    exp[ - \frac{1}{2} (x - \mu_0)^T \Sigma^{-1} (x - \mu_0) ]
+  }
+\]
+\[
+  = \frac{1}{
+    1 + \frac{
+      (1 - \phi) \;
+      exp[ - \frac{1}{2} (x - \mu_0)^T \Sigma^{-1} (x - \mu_0) ]
+    }{
+      \phi \;
+      exp[ - \frac{1}{2} (x - \mu_1)^T \Sigma^{-1} (x - \mu_1) ]
+    }
+  }
+\]
+Consider 
+\[
+\frac{
+      (1 - \phi) \;
+      exp[ - \frac{1}{2} (x - \mu_0)^T \Sigma^{-1} (x - \mu_0) ]
+    }{
+      \phi \;
+      exp[ - \frac{1}{2} (x - \mu_1)^T \Sigma^{-1} (x - \mu_1) ]
+    }
+\]
+\[
+  = \frac{1 - \phi}{\phi} 
+  exp[ - \frac{1}{2} (x - \mu_0)^T \Sigma^{-1} (x - \mu_0) + \frac{1}{2} (x - \mu_1)^T \Sigma^{-1} (x - \mu_1) ]
+\]
+\[
+  = \frac{1 - \phi}{\phi} 
+  exp[ - \frac{1}{2} (x - \mu_0)^T \Sigma^{-1} (x - \mu_0) + \frac{1}{2} (x - \mu_1)^T \Sigma^{-1} (x - \mu_1) ]
+\]
+\[
+  = \frac{1 - \phi}{\phi} 
+  exp[
+    x^T \Sigma^{-1} \mu_0 - \frac{1}{2} \mu_0 \Sigma^{-1} \mu_0 - x^T \Sigma^{-1} \mu_1 + \frac{1}{2} \mu_{1}^{T} \Sigma^{-1} \mu_1 
+  ]
+\]
+\[
+  = exp [ log( \frac{1 - \phi}{\phi} ) ]
+  exp[
+    x^T \Sigma^{-1} \mu_0 - \frac{1}{2} \mu_0 \Sigma^{-1} \mu_0 - x^T \Sigma^{-1} \mu_1 + \frac{1}{2} \mu_{1}^{T} \Sigma^{-1} \mu_1 
+  ]
+\]
+\[
+  = exp [ log( \frac{1 - \phi}{\phi} ) 
+  +
+    x^T \Sigma^{-1} \mu_0 - \frac{1}{2} \mu_0 \Sigma^{-1} \mu_0 - x^T \Sigma^{-1} \mu_1 + \frac{1}{2} \mu_{1}^{T} \Sigma^{-1} \mu_1 
+  ]
+\]
+\[
+  = exp [  
+    - ( x^T ( \Sigma^{-1} \mu_1 - \Sigma^{-1} \mu_0 ) + \frac{1}{2} ( \mu_0 \Sigma^{-1} \mu_0 - \mu_{1}^{T} \Sigma^{-1} \mu_1 ) - log( \frac{1 - \phi}{\phi} ) )
+  ]
+\]
+
+By incorporating this into our expression for $ p( y = 1 | x; \phi, \Sigma, m_0, m_1 ) $ above, we get
+
+\[
+  \frac{1}{
+      1 + exp [  
+      - ( x^T ( \Sigma^{-1} \mu_1 - \Sigma^{-1} \mu_0 ) + \frac{1}{2} ( \mu_0 \Sigma^{-1} \mu_0 - \mu_{1}^{T} \Sigma^{-1} \mu_1 ) - log( \frac{1 - \phi}{\phi} ) )
+    ]
+  }
+\]
+If we let $ w $ represent a function of $ \phi, \Sigma, \mu_0, $ and $ \mu_1 $, then 
+\[
+  p( y = 1 | x; \phi, \Sigma, m_0, m_1 ) 
+  =
+  \frac{1}{1 + exp[ -w^T x ]} \; \square
+\]
 \end{document}
