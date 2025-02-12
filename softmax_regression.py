@@ -135,11 +135,11 @@ def compute_accuracy(X_test: np.ndarray,
     # We are using this value at the end of this function by dividing it to   #
     # number of (X, Y) data pairs. Hint: check the equation in the homework.  #
     ###########################################################################
-    logits = np.exp(X_test @ W.T)
-    probs = logits/(1 + np.tile(np.reshape(np.sum(logits, axis = 1), shape=(-1, 1)), (1, logits.shape[1])))
+    probs = compute_softmax_probs(X_test, W)
     predictions = (np.argmax(probs, axis = 1) + 1).astype(np.int32) 
     int_Y_test = np.reshape(int_Y_test, shape=-1)
-    count_correct = predictions[predictions==int_Y_test].size
+    count_correct = np.sum(predictions == int_Y_test)
+    #count_correct = np.array(predictions[predictions==int_Y_test].size)
     ###########################################################################
     #                            END OF YOUR CODE                             #
     ###########################################################################
