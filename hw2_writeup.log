@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.28)  12 FEB 2025 05:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.28)  12 FEB 2025 17:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -159,7 +159,23 @@ Package pdftex.def Info: logistic_regression.png  used on input line 116.
 
 [7]
 
-[8] (./hw2_writeup.aux)
+[8]
+Overfull \hbox (12.07648pt too wide) detected at line 570
+\OT1/cmr/m/n/12 [[]\OML/cmm/m/it/12 exp\OT1/cmr/m/n/12 [\OMS/cmsy/m/n/12 ^^@[]\
+OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x[] \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 ^^V[
+]\OT1/cmr/m/n/12 )[]^^F[](\OML/cmm/m/it/12 x[] \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/
+it/12 ^^V[]\OT1/cmr/m/n/12 )]\OML/cmm/m/it/12 ^^^[]\OT1/cmr/m/n/12 (1 \OMS/cmsy
+/m/n/12 ^^@ \OML/cmm/m/it/12 ^^^\OT1/cmr/m/n/12 )[][] \OMS/cmsy/m/n/12 ^^@ []\O
+T1/cmr/m/n/12 (\OML/cmm/m/it/12 x[] \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 ^^V[]
+\OT1/cmr/m/n/12 )[]^^F[](\OML/cmm/m/it/12 x[] \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/i
+t/12 ^^V[]\OT1/cmr/m/n/12 )
+ []
+
+
+
+[9]
+
+[10] (./hw2_writeup.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-12-25>
@@ -168,7 +184,7 @@ L3 programming layer <2024-12-25>
 Here is how much of TeX's memory you used:
  1834 strings out of 473207
  27512 string characters out of 5716288
- 423200 words of memory out of 5000000
+ 426202 words of memory out of 5000000
  25098 multiletter control sequences out of 15000+600000
  564141 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -187,10 +203,10 @@ live/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texli
 ve/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive
 /2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/tex
 live/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on hw2_writeup.pdf (8 pages, 228866 bytes).
+Output written on hw2_writeup.pdf (10 pages, 235893 bytes).
 PDF statistics:
- 104 PDF objects out of 1000 (max. 8388607)
- 63 compressed objects within 1 object stream
+ 110 PDF objects out of 1000 (max. 8388607)
+ 67 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

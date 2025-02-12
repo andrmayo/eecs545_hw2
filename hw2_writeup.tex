@@ -544,4 +544,171 @@ Similarly,
     \sum_{i=1}^{N} \mathbb{I} \{ y^{(i)} = 1 \}
   } \; \square
 \]
+\newpage
+\textbf{3 (c)} $ \ell (\phi, m_0, m_1, \Sigma) = $
+\[
+  \sum_{i=1}^{N} log [ \frac{1}{2 \pi^{\frac{M}{2}} |\Sigma|^{\frac{1}{2}}} 
+  exp[ - \frac{1}{2} (x^{(i)} - \mu_{y_{(i)}})^T \Sigma^{-1} (x^{(i)} - \mu_{y_{(i)}}) ] 
+  \phi^{y^{(i)}} (1 - \phi)^{1 - y^{(i)}}) ]
+\]
+\[
+  \frac{\partial}{\partial \Sigma} \ell (\phi, \mu_0, \mu_1, \Sigma) = 
+\]
+\[
+  \sum_{i=1}^{N} \frac{1}{
+    \frac{1}{2 \pi^{\frac{M}{2}} |\Sigma|^{\frac{1}{2}}} 
+    exp[ - \frac{1}{2} (x^{(i)} - \mu_{y_{(i)}})^T \Sigma^{-1} (x^{(i)} - \mu_{y_{(i)}}) ] 
+    \phi^{y^{(i)}} (1 - \phi)^{1 - y^{(i)}} 
+  }
+\]
+\[
+  [ 
+  \frac{1}{2 \pi^{\frac{M}{2}} |\Sigma|^{\frac{1}{2}}} 
+  exp[ - \frac{1}{2} (x^{(i)} - \mu_{y_{(i)}})^T \Sigma^{-1} (x^{(i)} - \mu_{y_{(i)}}) ] 
+  \phi^{y^{(i)}} (1 - \phi)^{1 - y^{(i)}}
+  \frac{\partial}{\partial \Sigma} - \frac{1}{2} (x^{(i)} - \mu_{y_{(i)}})^T \Sigma^{-1} (x^{(i)} - \mu_{y_{(i)}})
+\]
+\[
+  + exp[ -\frac{1}{2} (x^{(i)} - \mu_{y_{(i)}})^T \Sigma^{-1} (x^{(i)} - \mu_{y_{(i)}}) ]
+  \phi^{y^{(i)}} (1 - \phi)^{1 - y^{(i)}}
+  \frac{\partial}{\partial \Sigma} 
+  \frac{1}{2 \pi^{\frac{M}{2}} |\Sigma|^{\frac{1}{2}}} 
+  ]
+\]
+
+\[
+  = \sum_{i=1}^{N}
+  \frac{\partial}{\partial \Sigma} - \frac{1}{2} (x^{(i)} - \mu_{y_{(i)}})^T \Sigma^{-1} (x^{(i)} - \mu_{y_{(i)}})
+  + \frac{1}{
+      \frac{1}{2 \pi^{\frac{M}{2}} |\Sigma|^{\frac{1}{2}}} 
+    } 
+  \frac{\partial}{\partial \Sigma} 
+  \frac{1}{2 \pi^{\frac{M}{2}} |\Sigma|^{\frac{1}{2}}} 
+\]
+
+\[
+  = \sum_{i=1}^{N} \frac{\partial}{\partial \Sigma}
+  - \frac{1}{2} x^{(i)T} \Sigma^{-1} x^{(i)} 
+  + x^{(i)T} \Sigma^{-1} \mu_{y_{(i)}}
+  - \frac{1}{2} \mu_{y_{(i)}}^T \Sigma^{-1} \mu_{y_{(i)}}
+  + \frac{1}{
+      \frac{1}{2 \pi^{\frac{M}{2}} |\Sigma|^{\frac{1}{2}}} 
+    } 
+  \frac{\partial}{\partial \Sigma} 
+  \frac{1}{2 \pi^{\frac{M}{2}} |\Sigma|^{\frac{1}{2}}} 
+\]
+\[
+  = \sum_{i=1}^{N} 
+  \frac{1}{2} x^{(i)T} \Sigma^{-2} x^{(i)} 
+  - x^{(i)T} \Sigma^{-2} \mu_{y_{(i)}}
+  + \frac{1}{2} \mu_{y_{(i)}}^T \Sigma^{-2} \mu_{y_{(i)}}
+  + \frac{1}{
+      \frac{1}{2 \pi^{\frac{M}{2}} |\Sigma|^{\frac{1}{2}}} 
+    } 
+  \frac{- 1}{ ( 2 \pi^{\frac{M}{2}} |\Sigma|^{\frac{1}{2}} )^2 } 
+  \frac{
+    \pi^{\frac{M}{2}} 
+  }{
+    \Sigma^{\frac{1}{2}}
+  }
+\]
+\[
+  = \sum_{i=1}^{N}
+  \frac{1}{2} x^{(i)T} \Sigma^{-2} x^{(i)} 
+  - x^{(i)T} \Sigma^{-2} \mu_{y_{(i)}}
+  + \frac{1}{2} \mu_{y_{(i)}}^T \Sigma^{-2} \mu_{y_{(i)}}
+  - \frac{1}{ 2 \Sigma} 
+\]
+\[
+  N \Sigma
+  = \sum_{i=1}^{N}
+  x^{(i)T} x^{(i)} 
+  - 2 x^{(i)T} \mu_{y_{(i)}}
+  + \mu_{y_{(i)}}^T \mu_{y_{(i)}}
+\]
+\[
+  \Sigma
+  = \frac {1}{N} \sum_{i=1}^{N}
+  (x^{(i)} - \mu_{y_{(i)}})^2
+  \; \square
+\]
+
+\textbf{3 (d)} We can reuse much of the proof in \textbf{3 (c)} that did not require that $ M = 1 $. $ \ell (\phi, m_0, m_1, \Sigma) = $
+\[
+  \sum_{i=1}^{N} log [ \frac{1}{2 \pi^{\frac{M}{2}} |\Sigma|^{\frac{1}{2}}} 
+  exp[ - \frac{1}{2} (x^{(i)} - \mu_{y_{(i)}})^T \Sigma^{-1} (x^{(i)} - \mu_{y_{(i)}}) ] 
+  \phi^{y^{(i)}} (1 - \phi)^{1 - y^{(i)}}) ]
+\]
+
+Here, however, we can isolate $ |\Sigma| $:
+\[
+  \sum_{i=1}^{N} log(\frac{1}{|\Sigma|^{\frac{1}{2}}}) + log [ \frac{1}{2 \pi^{\frac{M}{2}} } 
+  exp[ - \frac{1}{2} (x^{(i)} - \mu_{y_{(i)}})^T \Sigma^{-1} (x^{(i)} - \mu_{y_{(i)}}) ] 
+  \phi^{y^{(i)}} (1 - \phi)^{1 - y^{(i)}}) ]
+\]
+\[
+  = \sum_{i=1}^{N} log(1) - \frac{1}{2} log(|\Sigma|) + log [ \frac{1}{2 \pi^{\frac{M}{2}} } 
+  exp[ - \frac{1}{2} (x^{(i)} - \mu_{y_{(i)}})^T \Sigma^{-1} (x^{(i)} - \mu_{y_{(i)}}) ] 
+  \phi^{y^{(i)}} (1 - \phi)^{1 - y^{(i)}}) ]
+\]
+
+Now, we can differentiate as before, 
+but express $ \nabla_{\Sigma} log | \Sigma | $ as $ \Sigma^{-1} $. 
+
+
+\[
+  \frac{\partial}{\partial \Sigma} \ell (\phi, \mu_0, \mu_1, \Sigma) =
+  \sum_{i=1}^{N} 
+    -\frac{1}{2} \Sigma^{-1}
+    + \frac{1}{
+    \frac{1}{2 \pi^{\frac{M}{2}} } 
+    exp[ - \frac{1}{2} (x^{(i)} - \mu_{y_{(i)}})^T \Sigma^{-1} (x^{(i)} - \mu_{y_{(i)}}) ] 
+    \phi^{y^{(i)}} (1 - \phi)^{1 - y^{(i)}} 
+  }
+\]
+\[
+  [ 
+  \frac{1}{2 \pi^{\frac{M}{2}} } 
+  exp[ - \frac{1}{2} (x^{(i)} - \mu_{y_{(i)}})^T \Sigma^{-1} (x^{(i)} - \mu_{y_{(i)}}) ] 
+  \phi^{y^{(i)}} (1 - \phi)^{1 - y^{(i)}}
+  \frac{\partial}{\partial \Sigma} - \frac{1}{2} (x^{(i)} - \mu_{y_{(i)}})^T \Sigma^{-1} (x^{(i)} - \mu_{y_{(i)}})
+  ]
+\]
+
+\[
+  = \sum_{i=1}^{N}
+  -\frac{1}{2} \Sigma^{-1}
+  + \frac{\partial}{\partial \Sigma} - \frac{1}{2} (x^{(i)} - \mu_{y_{(i)}})^T \Sigma^{-1} (x^{(i)} - \mu_{y_{(i)}})
+  \]
+
+\[
+  = \sum_{i=1}^{N} 
+  -\frac{1}{2} \Sigma^{-1}
+  + \frac{\partial}{\partial \Sigma}
+  - \frac{1}{2} x^{(i)T} \Sigma^{-1} x^{(i)} 
+  + x^{(i)T} \Sigma^{-1} \mu_{y_{(i)}}
+  - \frac{1}{2} \mu_{y_{(i)}}^T \Sigma^{-1} \mu_{y_{(i)}}
+\]
+\[
+  0 = \sum_{i=1}^{N}
+  -\frac{1}{2} \Sigma^{-1}
+  + \frac{1}{2} \Sigma^{-1} x^{(i)} x^{(i)T} \Sigma^{-1}
+  - \Sigma^{-1} x^{(i)} \mu_{y_{(i)}}^T \Sigma^{-1}
+  + \frac{1}{2} \Sigma^{-1} \mu_{y_{(i)}} \mu_{y_{(i)}}^T \Sigma^{-1} 
+\]
+\[
+  N \Sigma^{-1} = \sum_{i=1}^{N}
+  \Sigma^{-1} x^{(i)} x^{(i)T} \Sigma^{-1}
+  - \Sigma^{-1} 2 x^{(i)} \mu_{y_{(i)}}^T \Sigma^{-1}
+  + \Sigma^{-1} \mu_{y_{(i)}} \mu_{y_{(i)}}^T \Sigma^{-1}
+\]
+\[
+  \Sigma = \frac{1}{N} \sum_{i=1}^{N}
+  x^{(i)} x^{(i)T} 
+  - 2 x^{(i)} \mu_{y_{(i)}}^T
+  + \mu_{y_{(i)}} \mu_{y_{(i)}}^T
+\]
+\[
+  \Sigma = \frac{1}{N} \sum_{i=1}^{N} (x^{(i)} -\mu_{y_{(i)}}) (x^{(i)} -\mu_{y_{(i)}})^T \; \square
+\]
 \end{document}
