@@ -520,7 +520,7 @@ If we let $ w $ represent a function of $ \phi, \Sigma, \mu_0, $ and $ \mu_1 $, 
 \[
   \frac{\partial} {\partial \mu_0} = 0 = \sum_{i=1}^{N} 
   \mathbb{I} \{ y^{(i)} = 0 \} {x^{(i)}}^T \Sigma^{-1} 
-    - \mu_{y_{(i)}}^T \Sigma^{-1}
+    - \mathbb{I} \{ y^{(i)} = 0 \} \mu_{y_{(i)}}^T \Sigma^{-1}
 \]
 \[
   \sum_{i=1}^{N} \mathbb{I} \{ y^{(i)} = 0 \} \mu_{0}^T = \sum_{i=1}^{N} 
