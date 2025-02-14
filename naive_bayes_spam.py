@@ -35,7 +35,11 @@ def train_naive_bayes(X: np.ndarray, Y: np.ndarray,
     # Please do not forget to apply Laplace smothing here.                    #
     # Hint: you can filter out SPAM mail details with X[Y == 1, :].           #
     ###########################################################################
-    raise NotImplementedError("TODO: Add your implementation here.")
+    word_counts_spam = np.sum(X[Y == 1, :], axis = 0) + 1
+    mu_spam = word_counts_spam / word_counts_spam.sum()
+    word_counts_non_spam = np.sum(X[Y == 0, :], axis = 0) + 1
+    mu_non_spam = word_counts_non_spam / word_counts_non_spam.sum()
+    phi = X[Y == 1, :].shape[0] / X.shape[0]
     ###########################################################################
     #                            END OF YOUR CODE                             #
     ###########################################################################
@@ -68,7 +72,9 @@ def test_naive_bayes(X: np.ndarray,
     # Hint 1: Think about using logarithms.                                   #
     # Hint 2: You may want to consider each email as an indepenednet email    #
     ###########################################################################
-    raise NotImplementedError("TODO: Add your implementation here.")
+    logit_spam = np.log(phi) + np.sum(np.log(mu_spam) * X, axis = 1)
+    logit_non_spam = np.log(1 - phi) + np.sum(np.log(mu_non_spam) * X, axis = 1)
+    pred[logit_spam > logit_non_spam] = 1
     ###########################################################################
     #                            END OF YOUR CODE                             #
     ###########################################################################

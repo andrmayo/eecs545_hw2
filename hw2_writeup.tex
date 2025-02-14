@@ -711,4 +711,112 @@ but express $ \nabla_{\Sigma} log | \Sigma | $ as $ \Sigma^{-1} $.
 \[
   \Sigma = \frac{1}{N} \sum_{i=1}^{N} (x^{(i)} -\mu_{y_{(i)}}) (x^{(i)} -\mu_{y_{(i)}})^T \; \square
 \]
+
+\newpage
+
+\textbf{4 (a)} We can start with the joint log-likelihood expression from lecture, modifying it to apply to $ i = 1, ..., K $ classes,
+as expressed for data points $ \{(x^{(n)}, y^{(n)}); n = 1, ..., N\} $:
+\[
+  \sum_{n}^{y^{(n)} = i} log [P(x^{(n)}, y^{(n)})] = \sum_{n}^{y^{(n)} = i} log ( \phi_{y^{(n)}} ) + \sum_{j=1}^{M} log (\mu_{j}^{y^{(n)}})
+\]
+If we make this an MAP estimate by incorporating our Dirichlet distribution prior, we get
+\[
+  \sum_{n}^{y^{(n)} = i} log ( \phi_{y^{(n)}} ) + \sum_{j=1}^{M} log (\mu_{j}^{y^{(n)}})
+  + \sum_{k=1}^{K} log [ \frac{1}{Z} \prod_{j=1}^{M}(\mu_{j}^{k})^\alpha ]
+\]
+\[
+  = \sum_{n}^{y^{(n)} = i} log ( \phi_{y^{(n)}} ) + \sum_{j=1}^{M} log (\mu_{j}^{y^{(n)}})
+  + K \log [ \frac{1}{Z} ] 
+  + \sum_{k=1}^{K} \alpha \sum_{j=1}^{M} log ( \mu_{j}^{k} )
+\]
+
+\[
+  = 
+  \sum_{i=1}^{K} N^{i} log(\phi_i) 
+  + \sum_{j=1}^{M} N_{j}^{i} log (\mu_{j}^{i})
+  + \log [ \frac{1}{Z} ]
+  + \alpha \sum_{j=1}^{M} log ( \mu_{j}^{i} )
+\]
+Since we know that $ \sum_{i}^{K} \phi_i = 1 $, 
+$ \sum_{i^\prime}^{i^\prime \neq i} \phi_{i^{\prime}} = 1 - \phi_i $ for any $ i \in \{ 1, ..., K \} $. So
+
+\[
+  \frac{\partial}{\partial \phi_i} = 
+  N^{i} \frac{1}{\phi_i} - N^{C_{i^{\prime}}} \frac{1}{1 - \phi_i} = 0
+\]
+\[
+  N^{C_{i^{\prime}}} \frac{1}{1 - \phi_i} = 
+  N^{i} \frac{1}{\phi_i}
+\]
+\[
+  \phi_i N^{C_{i^{\prime}}}  = 
+  N^{i} - N^{i} \phi_i
+\]
+\[
+  \phi_i = 
+  \frac{ N^{i} }{ N^{i^{\prime}} + N^{i} }
+  = \frac{ N^{i} }{ \sum_{i^{\prime}}^{i^{\prime} \in K} N^{i^{\prime}} } \; \square
+\]
+
+Similarly, 
+\[
+  \sum_{j=1}^{M} N_{j}^{i} log (\mu_{j}^{i}) 
+  = \sum_{j=1}^{M-1} N_{j}^{i} log(\mu_{j}^{i}) 
+  + N_{M}^{i} log(1 - \sum_{j=1}^{M-1} log(\mu_{j}^{i}))
+\]
+\newpage
+so we can write our posterior probability expression as 
+
+\[
+  \sum_{i=1}^{K} N^{i} log(\phi_i) 
+  + \sum_{j=1}^{M-1} N_{j}^{i} log(\mu_{j}^{i}) 
+  + N_{M}^{i} log(1 - \sum_{j=1}^{M-1} log(\mu_{j}^{i}))
+\]
+\[
+  + \; \log [ \frac{1}{Z} ]
+  + \alpha \sum_{j=1}^{M-1} log(\mu_{j}^{i})
+  + \alpha \; log(1 - \sum_{j=1}^{M-1} log(\mu_{j}^{i}))
+\]
+\[
+  \frac{\partial l}{\partial \mu_{j}^{i}}
+  = 
+  \frac{N_{j}^{i}}{\mu_{j}^{i}}
+  - \frac{
+    N_{M}^{i}
+  }{
+    1 - \sum_{j=1}^{M-1} \mu_{j}^{i}
+  }
+  + \frac{\alpha}{\mu_{j}^{i}}
+  - \frac{
+    \alpha
+  }{
+    1 - \sum_{j=1}^{M-1} \mu_{j}^{i}
+  }
+\]
+\[
+  \frac{N_{j}^{i} + \alpha}{\mu_{j}^{i}}
+  - \frac{
+    N_{M}^{i} + \alpha 
+  }{
+    1 - \sum_{j=1}^{M-1} \mu_{j}^{i}
+  } = 0
+\]
+
+Similarly to what we saw in lecture, this means that 
+$ \frac{N_{j}^{i} + \alpha}{\mu_{j}^{i}} $ must be a constant $ \forall j $. Let this constant be $ A $.
+Since $ \sum_{j=1}^{M} \mu_{j}^{i} = 1 $ and $ \mu_{j}^{i} = \frac{N_{j}^{i} + \alpha}{A} $,
+\[
+  \sum_{j=1}^{M} \frac{N_{j}^{i} + \alpha}{A} = 1
+\]
+\[
+  A = \sum_{j=1}^{M} ( N_{j}^{i} + \alpha )
+  = \sum_{j=1}^{M} N_{j}^{i} + M \alpha
+\]
+\[
+  \frac{N_{j}^{i} + \alpha}{\mu_{j}^{i}} = \sum_{j=1}^{M} N_{j}^{i} + M \alpha
+\]
+\[
+  \mu_{j}^{i} = \frac{N_{j}^{i} + \alpha}{\sum_{j=1}^{M} N_{j}^{i} + M \alpha} \; \square
+\]
+
 \end{document}

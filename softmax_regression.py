@@ -137,12 +137,12 @@ def compute_accuracy(X_test: np.ndarray,
     ###########################################################################
     probs = compute_softmax_probs(X_test, W)
     predictions = (np.argmax(probs, axis = 1) + 1).astype(np.int32) 
-    int_Y_test = np.reshape(int_Y_test, shape=-1)
-    count_correct = np.sum(predictions == int_Y_test)
+    int_Y_test = np.reshape(int_Y_test, -1)
+    count_correct = np.sum(predictions == int_Y_test, dtype = np.float32)
     #count_correct = np.array(predictions[predictions==int_Y_test].size)
     ###########################################################################
     #                            END OF YOUR CODE                             #
     ###########################################################################
 
-    accuracy = count_correct / (N_test * 1.0)
+    accuracy = float(count_correct / (N_test * 1.0))
     return accuracy
