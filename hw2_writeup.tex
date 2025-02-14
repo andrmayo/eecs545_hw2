@@ -819,4 +819,26 @@ Since $ \sum_{j=1}^{M} \mu_{j}^{i} = 1 $ and $ \mu_{j}^{i} = \frac{N_{j}^{i} + \
   \mu_{j}^{i} = \frac{N_{j}^{i} + \alpha}{\sum_{j=1}^{M} N_{j}^{i} + M \alpha} \; \square
 \]
 
+\textbf{4 (b) ii.} 
+According to the metric given in the homework, the top 5 most signicant works for 
+classifying an email as spam are 'httpaddr', 'spam', 'unsubscrib', 'ebai', and 'valet'. \\
+
+\textbf{4 (b) iii.} 
+Accuracy for 50 mail data (data/q4\_data/MATRIX.TRAIN.50): 96.1250\% \\
+Accuracy for 100 mail data (data/q4\_data/MATRIX.TRAIN.100): 97.3750\% \\
+Accuracy for 200 mail data (data/q4\_data/MATRIX.TRAIN.200): 97.3750\% \\
+Accuracy for 400 mail data (data/q4\_data/MATRIX.TRAIN.400): 98.1250\% \\
+Accuracy for 800 mail data (data/q4\_data/MATRIX.TRAIN.800): 98.2500\% \\
+Accuracy for 1400 mail data (data/q4\_data/MATRIX.TRAIN.1400): 98.3750\%.
+
+\newpage
+
+\textbf{4 (b) iv.}
+\begin{figure}[h!]
+  \includegraphics[width=\linewidth]{naive_bayes_spam.png}
+\end{figure}
+
+\textbf{4 (b) v.}
+It seems that the best classification accuracy comes from the largest training set with 1400 data points.
+This makes sense: in general, overfitting is not as much of a worry with naive Bayes as with other machine learning algorithms.
 \end{document}

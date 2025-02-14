@@ -124,7 +124,8 @@ def get_indicative_tokens(mu_spam: np.ndarray,
     # return type.                                                    #
     # Hint: You may want to revisit Numpy API to get a sorted index.  #
     ###################################################################
-    raise NotImplementedError("TODO: Add your implementation here.")
+    metric = np.log(mu_spam) - np.log(mu_non_spam)
+    idx_list = np.flip(np.argsort(metric)[-top_k:])
     ###################################################################
     #                        END OF YOUR CODE                         #
     ###################################################################

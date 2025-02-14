@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.28)  13 FEB 2025 18:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.28)  13 FEB 2025 20:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -178,18 +178,31 @@ t/12 ^^V[]\OT1/cmr/m/n/12 )
 [10]
 
 [11]
+Underfull \hbox (badness 10000) in paragraph at lines 822--825
 
-[12] (./hw2_writeup.aux)
+ []
+
+
+
+[12]
+<naive_bayes_spam.png, id=57, 412.72945pt x 390.42738pt>
+File: naive_bayes_spam.png Graphic file (type png)
+<use naive_bayes_spam.png>
+Package pdftex.def Info: naive_bayes_spam.png  used on input line 838.
+(pdftex.def)             Requested size: 469.75499pt x 444.37694pt.
+
+
+[13 <./naive_bayes_spam.png>] (./hw2_writeup.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-12-25>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 1834 strings out of 473207
- 27512 string characters out of 5716288
+ 1842 strings out of 473207
+ 27718 string characters out of 5716288
  426202 words of memory out of 5000000
- 25098 multiletter control sequences out of 15000+600000
+ 25106 multiletter control sequences out of 15000+600000
  564141 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,7n,65p,231b,224s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -207,10 +220,10 @@ live/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texli
 ve/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive
 /2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/tex
 live/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on hw2_writeup.pdf (12 pages, 244765 bytes).
+Output written on hw2_writeup.pdf (13 pages, 326976 bytes).
 PDF statistics:
- 116 PDF objects out of 1000 (max. 8388607)
- 71 compressed objects within 1 object stream
+ 122 PDF objects out of 1000 (max. 8388607)
+ 74 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
